@@ -25,15 +25,13 @@ class Player(Sprite):
     def get_keys(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_w]:
-            self.vy -= self.speed
-            # print(self.vy)
+            self.vy += self.speed
         if keys[pg.K_a]:
-            self.vx -= self.speed
-        if keys[pg.K_s]:
-            self.vy += self.speed 
-            # print(self.vy)
-        if keys[pg.K_d]:
             self.vx += self.speed
+        if keys[pg.K_s]:
+            self.vy -= self.speed
+        if keys[pg.K_d]:
+            self.vx -= self.speed
     
     # telling the game what to do when the player hits a wall.
     def collide_with_walls(self, dir):
@@ -52,7 +50,7 @@ class Player(Sprite):
                 if self.vy > 0:
                     self.y = hits[0].rect.top - TILESIZE
                 if self.vy < 0:
-                    self.rect.top = hits[0].rect.bottom
+                    self.y = hits[0].rect.bottom
                 self.vy = 0
                 self.rect.y = self.y
                     
