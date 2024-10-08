@@ -7,6 +7,14 @@ from sprites import *
 from tilemap import *
 from os import path
 
+'''
+GOALS:
+RULES:
+FEEDBACK:
+FREEDOM:
+
+'''
+
 # create a game class that carries all the properties of the game and methods
 class Game:
     def __init__(self):
@@ -25,6 +33,7 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.all_walls = pg.sprite.Group()
         self.all_powerups = pg.sprite.Group()
+        self.all_coins = pg.sprite.Group()
         # instantiating the classes to create objects
         # self.player = Player(self, 5, 5)
         # self.mob = Mob(self, 50, 50)
@@ -46,6 +55,8 @@ class Game:
                     self.player = Player(self, col, row)
                 if tile == 'U':
                     Powerup(self, col, row)
+                if tile == 'C':
+                    Coin(self, col, row)
 
 
     # running the game
@@ -84,6 +95,7 @@ class Game:
         self.all_sprites.draw(self.screen)
         self.draw_text(self.screen, "asdfdasfasdf", 24, WHITE, WIDTH/2, HEIGHT/2)
         self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
+        self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
         pg.display.flip()
 
 #? What does this block of code do?

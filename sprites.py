@@ -19,19 +19,20 @@ class Player(Sprite):
         # self.rect.y = y
         self.x = x * TILESIZE
         self.y = y * TILESIZE
-        self.speed = 10
+        self.speed = 20
         self.vx, self.vy = 0, 0
+        self.coin_count = 0
     # telling the game what to do when we press w, a, s, or d.
     def get_keys(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_w]:
-            self.vy += self.speed
-        if keys[pg.K_a]:
-            self.vx += self.speed
-        if keys[pg.K_s]:
             self.vy -= self.speed
-        if keys[pg.K_d]:
+        if keys[pg.K_a]:
             self.vx -= self.speed
+        if keys[pg.K_s]:
+            self.vy += self.speed
+        if keys[pg.K_d]:
+            self.vx += self.speed
     
     # telling the game what to do when the player hits a wall.
     def collide_with_walls(self, dir):
@@ -67,6 +68,9 @@ class Player(Sprite):
             if str(hits[0].__class__.__name__) == "Powerup":
                 self.speed += 20
                 print("ive gotten a powerup")
+            if str(hits[0].__class__.__name__) == "Coin":
+                self.coin_count += 1
+                print("ive gotten a coin")
         
     def update(self):
         self.get_keys()
@@ -86,6 +90,7 @@ class Player(Sprite):
         self.collide_with_walls('y')
 
         self.collide_with_stuff(self.game.all_powerups, True)
+        self.collide_with_stuff(self.game.all_coins, True)
 
 # add mobs
 class Mob(Sprite):
@@ -136,6 +141,18 @@ class Powerup(Sprite):
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
         self.image.fill(PURPLE)
+        self.rect = self.image.get_rect()
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+# add coin
+class Coin(Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.all_coins
+        Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
