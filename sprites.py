@@ -9,7 +9,7 @@ from settings import *
 class Player(Sprite):
     # this initializse the properties of the player class including x/y location and the game perameter so the player can interact with the game.
     def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.all_walls
+        self.groups = game.all_sprites
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((32, 32))
@@ -22,11 +22,11 @@ class Player(Sprite):
         self.speed = 20
         self.vx, self.vy = 0, 0
         self.coin_count = 0
-    # telling the game what to do when we press w, a, s, or d.
     def get_keys(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_w]:
             self.vy -= self.speed
+            print(self.vy)
         if keys[pg.K_a]:
             self.vx -= self.speed
         if keys[pg.K_s]:
