@@ -6,15 +6,18 @@
 # this is where we import libraries and modules
 import pygame as pg
 from settings import *
-from sprites import *
+# from sprites import *
+from sprites_side_scroller import *
 from tilemap import *
 from os import path
 
 '''
-GOALS:
-RULES:
+create a game where the player tries to survive falling objects
+
+GOALS: survive as long as possible
+RULES: don't get hit by the falling objects
 FEEDBACK:
-FREEDOM:
+FREEDOM: x movement, jumping
 
 '''
 
