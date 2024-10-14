@@ -56,13 +56,19 @@ class Game:
                 if tile == '1':
                     Wall(self, col, row)
                 if tile == 'M':
-                    Mob(self,col, row)
+                    Mob(self, col, row)
                 if tile == 'P':
                     self.player = Player(self, col, row)
                 if tile == 'U':
                     Powerup(self, col, row)
                 if tile == 'C':
                     Coin(self, col, row)
+
+        self.mob = Mob(self, randint(32, 992), 768)
+        for i in range(5):
+            m = Mob(self, randint(32, 992), 768)
+            print("hi")
+            
 
 
     # running the game
@@ -99,9 +105,9 @@ class Game:
     def draw(self):
         self.screen.fill((0, 0, 0))
         self.all_sprites.draw(self.screen)
-        self.draw_text(self.screen, "asdfdasfasdf", 24, WHITE, WIDTH/2, HEIGHT/2)
+        # self.draw_text(self.screen, "asdfdasfasdf", 24, WHITE, WIDTH/2, HEIGHT/2)
         self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
-        self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
+        # self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
         pg.display.flip()
 
 #? What does this block of code do?

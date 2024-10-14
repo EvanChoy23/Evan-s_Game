@@ -34,26 +34,26 @@ class Player(Sprite):
     # Tell the game what to do when we press a certain key
     def get_keys(self):
         keys = pg.key.get_pressed()
-        # if keys[pg.K_w]:
-        #     self.vy -= self.speed
+        if keys[pg.K_w]:
+            self.jump()
         if keys[pg.K_a]:
             self.vel.x -= self.speed
         # if keys[pg.K_s]:
         #     self.vy += self.speed
         if keys[pg.K_d]:
             self.vel.x += self.speed
-        if keys[pg.K_SPACE]:
-            self.jump()
 
+    # tell the game how the player jumps
     def jump(self):
-        print("im trying to jump")
-        print(self.vel.y)
+        # print("im trying to jump")
+        # print(self.vel.y)
         self.rect.y += 2
         hits = pg.sprite.spritecollide(self, self.game.all_walls, False)
         self.rect.y -= 2
         if hits and not self.jumping:
             self.jumping = True
             self.vel.y = -self.jump_power
+
     # telling the game what to do when the player hits a wall
     def collide_with_walls(self, dir):
         if dir == 'x':
@@ -125,21 +125,21 @@ class Mob(Sprite):
         self.image = pg.Surface((32, 32))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
-        self.x = x * TILESIZE
-        self.y = y * TILESIZE
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
         self.speed = 10
 
     # tells the game what to do to update mobs.
     def update(self):
-        self.rect.x += self.speed
-        if self.rect.x > WIDTH or self.rect.x < 0:
-            self.speed *= -1
-            self.rect.y += 32
-        if self.rect.y > HEIGHT:
-            self.rect.y = 0
+        self.rect.y += self.speed
+        # if self.rect.x > WIDTH or self.rect.x < 0:
+        #     self.speed *= -1
+        #     self.rect.y += 32
+        # if self.rect.y > HEIGHT:
+        #     self.rect.y = 0
 
         if self.rect.colliderect(self.game.player):
-            self.speed *= -1
+            self.speed = 0
 
 # add walls
 class Wall(Sprite):
