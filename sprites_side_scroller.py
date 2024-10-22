@@ -29,6 +29,7 @@ class Player(Sprite):
         self.speed = 5
         # self.vx, self.vy = 0, 0
         self.coin_count = 0
+        self.lives = 3
         self.jump_power = 20
         self.jumping = False
     # Tell the game what to do when we press a certain key
@@ -93,6 +94,10 @@ class Player(Sprite):
             if str(hits[0].__class__.__name__) == "Coin":
                 self.coin_count += 1
                 print("ive gotten a coin")
+            if str(hits[0].__class__.__name__) == "Mob":
+                self.lives -= 1
+                if self.lives == 0:
+                    pass
         
     def update(self):
         self.acc = vec(0, GRAVITY)
@@ -115,19 +120,20 @@ class Player(Sprite):
 
         self.collide_with_stuff(self.game.all_powerups, True)
         self.collide_with_stuff(self.game.all_coins, True)
+        self.collide_with_stuff(self.game.all_mobs, True)
 
 # add mobs
 class Mob(Sprite):
     def __init__(self, game, x, y):
-        self.groups = game.all_sprites
+        self.groups = game.all_sprites, game.all_mobs
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((32, 32))
-        self.image.fill(GREEN)
+        self.image.fill(BROWN)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
-        self.speed = 10
+        self.speed = 5
 
     # tells the game what to do to update mobs.
     def update(self):

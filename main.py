@@ -38,6 +38,7 @@ class Game:
         # create a group for sprites and walls using the pg library
         self.all_sprites = pg.sprite.Group()
         self.all_walls = pg.sprite.Group()
+        self.all_mobs = pg.sprite.Group()
         self.all_powerups = pg.sprite.Group()
         self.all_coins = pg.sprite.Group()
         # instantiating the classes to create objects
@@ -63,12 +64,6 @@ class Game:
                     Powerup(self, col, row)
                 if tile == 'C':
                     Coin(self, col, row)
-
-        self.mob = Mob(self, randint(32, 992), 768)
-        for i in range(5):
-            m = Mob(self, randint(32, 992), 768)
-            print("hi")
-            
 
 
     # running the game
@@ -108,6 +103,7 @@ class Game:
         # self.draw_text(self.screen, "asdfdasfasdf", 24, WHITE, WIDTH/2, HEIGHT/2)
         self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
         # self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
+        self.draw_text(self.screen, "Lives:" + str(self.player.lives), 24, WHITE, WIDTH-32, HEIGHT-32)
         pg.display.flip()
 
 #? What does this block of code do?
@@ -115,4 +111,4 @@ if __name__ == "__main__":
   # instantiate
   g = Game()
   g.new()
-  g.run()    
+  g.run()  
