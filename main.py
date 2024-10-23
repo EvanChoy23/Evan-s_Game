@@ -60,8 +60,8 @@ class Game:
                     Mob(self, col, row)
                 if tile == 'P':
                     self.player = Player(self, col, row)
-                if tile == 'U':
-                    Powerup(self, col, row)
+                if tile == 'J':
+                    Jump(self, col, row)
                 if tile == 'C':
                     Coin(self, col, row)
 

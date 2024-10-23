@@ -84,21 +84,23 @@ class Player(Sprite):
         # else:
         #     print("not working for dir check")
 
-    # tells the game what to do to update the player.
+    # tells the game what to do when the player collides with something
     def collide_with_stuff(self, group, kill):
         hits = pg.sprite.spritecollide(self, group, kill)
         if hits:
-            if str(hits[0].__class__.__name__) == "Powerup":
-                self.speed += 20
+            if str(hits[0].__class__.__name__) == "Jump":
+                self.jump_power += 10
                 print("ive gotten a powerup")
             if str(hits[0].__class__.__name__) == "Coin":
                 self.coin_count += 1
                 print("ive gotten a coin")
             if str(hits[0].__class__.__name__) == "Mob":
                 self.lives -= 1
+                print("ouch")
                 if self.lives == 0:
                     pass
         
+    # tells the game what to do to update the player
     def update(self):
         self.acc = vec(0, GRAVITY)
         self.get_keys()
@@ -128,7 +130,7 @@ class Mob(Sprite):
         self.groups = game.all_sprites, game.all_mobs
         Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = pg.Surface((32, 32))
+        self.image = pg.Surface((randint(32, 96), randint(32, 96)))
         self.image.fill(BROWN)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
@@ -153,7 +155,7 @@ class Wall(Sprite):
         self.groups = game.all_sprites, game.all_walls
         Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image = pg.Surface((32, 32))
         self.image.fill(BLUE)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
@@ -164,13 +166,13 @@ class Wall(Sprite):
         pass
 
 # add powerups
-class Powerup(Sprite):
+class Jump(Sprite):
     def __init__(self, game, x, y):
         self.groups = game.all_sprites, game.all_powerups
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(PURPLE)
+        self.image.fill(GREEN)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
