@@ -88,9 +88,9 @@ class Player(Sprite):
     def collide_with_stuff(self, group, kill):
         hits = pg.sprite.spritecollide(self, group, kill)
         if hits:
-            if str(hits[0].__class__.__name__) == "Jump":
-                self.jump_power += 10
-                print("ive gotten a powerup")
+            # if str(hits[0].__class__.__name__) == "Jump":
+            #     self.jump_power += 10
+            # print("ive gotten a powerup")
             if str(hits[0].__class__.__name__) == "Coin":
                 self.coin_count += 1
                 print("ive gotten a coin")
@@ -99,7 +99,7 @@ class Player(Sprite):
                 print("ouch")
                 if self.lives == 0:
                     pass
-        
+
     # tells the game what to do to update the player
     def update(self):
         self.acc = vec(0, GRAVITY)
