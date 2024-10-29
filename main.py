@@ -58,13 +58,15 @@ class Game:
                 if tile == '1':
                     Wall(self, col, row)
                 if tile == 'M':
-                    Mob(self, col, row)
+                    self.mob = Mob(self, col, row)
                 if tile == 'P':
                     self.player = Player(self, col, row)
                 if tile == 'J':
                     Jump(self, col, row)
                 if tile == 'C':
                     Coin(self, col, row)
+        
+        
 
 
     # running the game
@@ -92,6 +94,7 @@ class Game:
     def update(self):
     # this is where the sprites get updated
         self.all_sprites.update()
+
         if self.player.lives == 0:
             self.show_death_screen()
             self.running = False
@@ -106,12 +109,17 @@ class Game:
 
     # output
     def draw(self):
+        # create the screen
         self.screen.fill((0, 0, 0))
+        # draw the sprites on to the screen
         self.all_sprites.draw(self.screen)
         # self.draw_text(self.screen, "asdfdasfasdf", 24, WHITE, WIDTH/2, HEIGHT/2)
+        # draw frame rate
         self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
         # self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
+        # draw "lives" and "score"
         self.draw_text(self.screen, "Lives:" + str(self.player.lives), 24, WHITE, WIDTH-32, HEIGHT-32)
+        self.draw_text(self.screen, "Score:" + str(self.mob.score), 24, WHITE, 32, HEIGHT-32)
         pg.display.flip()
     
     # create a death screen
@@ -120,6 +128,7 @@ class Game:
         self.draw_text(self.screen, "You Died!", 42, WHITE, WIDTH/2, HEIGHT/2)
         pg.display.flip()
         self.wait_for_key()
+
     def wait_for_key(self):
         waiting = True
         while waiting:

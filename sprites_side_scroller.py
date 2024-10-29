@@ -32,6 +32,7 @@ class Player(Sprite):
         self.lives = 3
         self.jump_power = 20
         self.jumping = False
+
     # Tell the game what to do when we press a certain key
     def get_keys(self):
         keys = pg.key.get_pressed()
@@ -136,6 +137,7 @@ class Mob(Sprite):
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
         self.speed = 5
+        self.score = 0
 
     # tells the game what to do to update mobs.
     def update(self):
@@ -143,9 +145,14 @@ class Mob(Sprite):
         # if self.rect.x > WIDTH or self.rect.x < 0:
         #     self.speed *= -1
         #     self.rect.y += 32
-        # if self.rect.y > HEIGHT:
-        #     self.rect.y = 0
 
+        if self.rect.y > HEIGHT:
+            self.rect.y = 0
+            self.rect.x = randint(32, 998)
+            self.score += 1
+            if self.score == 10:
+                self.speed += 5
+            
         if self.rect.colliderect(self.game.player):
             self.speed = 0
 
