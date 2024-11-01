@@ -110,11 +110,14 @@ class Player(Sprite):
         # self.x += self.vx * self.game.dt
         # self.y += self.vy * self.game.dt
 
+        # round tiny velocities down
         if abs(self.vel.x) < 0.1:
             self.vel.x = 0
 
+        # updating the player's position
         self.pos += self.vel + 0.5 *self.acc
 
+        # checking for collisions
         self.rect.x = self.pos.x
         self.collide_with_walls('x')
 
@@ -146,12 +149,17 @@ class Mob(Sprite):
         #     self.speed *= -1
         #     self.rect.y += 32
 
+        # what to do when the mob goes below the screen
         if self.rect.y > HEIGHT:
             self.rect.y = 0
-            self.rect.x = randint(32, 998)
+            self.rect.x = randint(32, 966)
             self.score += 1
             if self.score == 10:
                 self.speed += 5
+            elif self.score == 20:
+                self.speed += 5
+            elif self.score == 30:
+                self.speed+= 5
             
         if self.rect.colliderect(self.game.player):
             self.speed = 0

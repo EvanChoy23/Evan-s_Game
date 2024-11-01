@@ -51,6 +51,8 @@ class Game:
         # for i in range(6):
         #     w = Wall(self, TILESIZE*i, TILESIZE*i)
         #     m = Mob(self, TILESIZE*i, TILESIZE*i)
+
+        # Create sprites using different characters
         for row, tiles in enumerate(self.map.data):
             print(row)
             for col,tile in enumerate(tiles):
@@ -65,9 +67,6 @@ class Game:
                     Jump(self, col, row)
                 if tile == 'C':
                     Coin(self, col, row)
-        
-        
-
 
     # running the game
     def run(self):
@@ -95,10 +94,12 @@ class Game:
     # this is where the sprites get updated
         self.all_sprites.update()
 
+        # what to do when the player runs out of lives
         if self.player.lives == 0:
             self.show_death_screen()
             self.running = False
 
+    # create a function to draw/create stuff on screen
     def draw_text(self, surface, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
         font = pg.font.Font(font_name, size)
