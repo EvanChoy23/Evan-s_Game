@@ -13,6 +13,11 @@ from os import path
 import sys
 
 '''
+Sources:
+
+'''
+
+'''
 create a game where the player tries to survive falling objects
 
 GOALS: survive as long as possible
@@ -43,14 +48,16 @@ class Game:
         self.all_powerups = pg.sprite.Group()
         self.all_coins = pg.sprite.Group()
         # instantiating the classes to create objects
-        # self.player = Player(self, 5, 5)
+        # self.player = Player(self, 64, 64)
         # self.mob = Mob(self, 50, 50)
-        # self.wall = Wall(self, WIDTH//2, HEIGHT//2)
+        # wall = Wall(self, WIDTH//2, HEIGHT//2)
 
         # # loop creating wall
         # for i in range(6):
         #     w = Wall(self, TILESIZE*i, TILESIZE*i)
         #     m = Mob(self, TILESIZE*i, TILESIZE*i)
+
+        # Wall(self, WIDTH//2, HEIGHT//2)
 
         # Create sprites using different characters
         for row, tiles in enumerate(self.map.data):
@@ -65,8 +72,8 @@ class Game:
                     self.player = Player(self, col, row)
                 if tile == 'J':
                     Jump(self, col, row)
-                if tile == 'C':
-                    Coin(self, col, row)
+                if tile == 'L':
+                    Life(self, col, row)
 
     # running the game
     def run(self):

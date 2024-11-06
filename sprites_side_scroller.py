@@ -17,7 +17,7 @@ class Player(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((32, 32))
-        self.image.fill((255, 0, 0))
+        self.image.fill((WHITE))
         self.rect = self.image.get_rect()
         # self.rect.x = x
         # self.rect.y = y
@@ -98,8 +98,10 @@ class Player(Sprite):
             if str(hits[0].__class__.__name__) == "Mob":
                 self.lives -= 1
                 print("ouch")
-                if self.lives == 0:
-                    pass
+            if str(hits[0].__class__.__name__) == "Life":
+                self.lives += 1
+
+
 
     # tells the game what to do to update the player
     def update(self):
@@ -152,17 +154,17 @@ class Mob(Sprite):
         # what to do when the mob goes below the screen
         if self.rect.y > HEIGHT:
             self.rect.y = 0
-            self.rect.x = randint(32, 966)
+            self.rect.x = randint(32, 934)
             self.score += 1
             if self.score == 10:
                 self.speed += 5
-            elif self.score == 20:
+            elif self.score == 25:
                 self.speed += 5
-            elif self.score == 30:
+            elif self.score == 40:
                 self.speed+= 5
             
-        if self.rect.colliderect(self.game.player):
-            self.speed = 0
+        # if self.rect.colliderect(self.game.player):
+        #     self.speed = 0
 
 # add walls
 class Wall(Sprite):
@@ -192,8 +194,8 @@ class Jump(Sprite):
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
 
-# add coin
-class Coin(Sprite):
+# add extra life powerup
+class Life(Sprite):
     def __init__(self, game, x, y):
         self.groups = game.all_sprites, game.all_coins
         Sprite.__init__(self, self.groups)
@@ -203,5 +205,8 @@ class Coin(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
-
+        self.speed = 1
+    
+    def update(self):
+        self.rect.y += self.speed
 
