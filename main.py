@@ -14,6 +14,8 @@ import sys
 
 '''
 Sources:
+https://www.w3schools.com/python/ref_random_choice.asp - How to use random choice
+https://www.color-meanings.com/shades-of-brown-color-names-html-hex-rgb-codes/ - Various shades of brown
 
 '''
 
@@ -67,7 +69,7 @@ class Game:
                 if tile == '1':
                     Wall(self, col, row)
                 if tile == 'M':
-                    self.mob = Mob(self, col, row)
+                    self.mob = Mob(self, col, row,)
                 if tile == 'P':
                     self.player = Player(self, col, row)
                 if tile == 'J':

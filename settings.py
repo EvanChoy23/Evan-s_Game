@@ -1,3 +1,5 @@
+from random import randint
+
 FPS = 30
 
 TILESIZE = 32
@@ -19,3 +21,8 @@ BLACK = (0, 0, 0)
 PURPLE = (255, 0, 255)
 YELLOW = (255, 255, 0)
 BROWN = (101, 67, 33)
+BEAVER = (159, 129, 112)
+BISTRE = (61, 43, 42)
+BRONZE = (205, 127, 50)
+BURNTUMBER =(138, 51, 36)
+COFFEE = (118, 78, 55)

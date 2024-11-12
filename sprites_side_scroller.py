@@ -3,6 +3,7 @@
 import pygame as pg
 from pygame.sprite import Sprite
 from random import randint
+import random
 from settings import *
 
 vec = pg.math.Vector2
@@ -132,12 +133,12 @@ class Player(Sprite):
 
 # add mobs
 class Mob(Sprite):
-    def __init__(self, game, x, y):
+    def __init__(self, game, x, y,):
         self.groups = game.all_sprites, game.all_mobs
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((randint(32, 96), randint(32, 96)))
-        self.image.fill(BROWN)
+        self.image.fill(random.choice([BROWN, BEAVER, BISTRE, BRONZE, BURNTUMBER, COFFEE]))
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
@@ -154,14 +155,18 @@ class Mob(Sprite):
         # what to do when the mob goes below the screen
         if self.rect.y > HEIGHT:
             self.rect.y = 0
-            self.rect.x = randint(32, 934)
+            self.rect.x = randint(32, 902)
             self.score += 1
-            if self.score == 10:
-                self.speed += randint(3, 5)
-            elif self.score == 25:
-                self.speed += randint(5,7)
-            elif self.score == 40:
-                self.speed += randint(7, 10)
+            self.speed += random.choice([-1,0.5,1])
+            self.image.fill(random.choice([BROWN, BEAVER, BISTRE, BRONZE, BURNTUMBER, COFFEE]))
+            # if self.speed == 0:
+            #     self.speed += 1
+            # if self.score == 10:
+            #     self.speed += randint(3, 5)
+            # elif self.score == 25:
+            #     self.speed += randint(5,7)
+            # elif self.score == 40:
+            #     self.speed += randint(7, 10)
             
         # if self.rect.colliderect(self.game.player):
         #     self.speed = 0
@@ -206,7 +211,3 @@ class Life(Sprite):
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
         self.speed = 1
-        self.score = getattr(Mob, 'score', None)
-        
-    def update(self):
-        self.rect.y += self.speed
