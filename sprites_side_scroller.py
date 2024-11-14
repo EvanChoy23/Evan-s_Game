@@ -155,7 +155,7 @@ class Mob(Sprite):
         # what to do when the mob goes below the screen
         if self.rect.y > HEIGHT:
             self.rect.y = 0
-            self.rect.x = randint(32, 902)
+            self.rect.x = randint(32, 918)
             self.score += 1
             self.speed += random.choice([-1,0.5,1])
             self.image.fill(random.choice([BROWN, BEAVER, BISTRE, BRONZE, BURNTUMBER, COFFEE]))
