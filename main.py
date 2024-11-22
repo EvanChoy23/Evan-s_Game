@@ -11,11 +11,13 @@ from sprites_side_scroller import *
 from tilemap import *
 from os import path
 import sys
+from utils import *
 
 '''
 Sources:
 https://www.w3schools.com/python/ref_random_choice.asp - How to use random choice
 https://www.color-meanings.com/shades-of-brown-color-names-html-hex-rgb-codes/ - Various shades of brown
+https://www.rapidtables.com/web/color/RGB_Color.html - Even more colors
 
 '''
 
@@ -37,6 +39,7 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption("Evan's really cool game")
         self.playing = True
+        self.timer = Timer(self)
     def load_data(self):
         self.game_folder = path.dirname(__file__)
         self.map = Map(path.join(self.game_folder, 'level1.txt'))
@@ -49,6 +52,7 @@ class Game:
         self.all_mobs = pg.sprite.Group()
         self.all_powerups = pg.sprite.Group()
         self.all_coins = pg.sprite.Group()
+
         # instantiating the classes to create objects
         # self.player = Player(self, 64, 64)
         # self.mob = Mob(self, 50, 50)
@@ -103,10 +107,15 @@ class Game:
     # this is where the sprites get updated
         self.all_sprites.update()
 
+        self.timer.ticking()
         # what to do when the player runs out of lives
         if self.player.lives == 0:
             self.show_death_screen()
             self.running = False
+
+        # if self.timer.current_time == 10:
+        #     Life(self, randint(32, 918), randint(32, 918))
+        #     print("uhhh")
 
     # create a function to draw/create stuff on screen
     def draw_text(self, surface, text, size, color, x, y):
@@ -129,13 +138,13 @@ class Game:
         # self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
         # draw "lives" and "score"
         self.draw_text(self.screen, "Lives:" + str(self.player.lives), 24, WHITE, WIDTH-32, HEIGHT-32)
-        self.draw_text(self.screen, "Score:" + str(self.mob.score), 24, WHITE, 32, HEIGHT-32)
+        self.draw_text(self.screen, "Seconds Survived:" + str(self.timer.current_time), 24, WHITE, 96, HEIGHT-32)
         pg.display.flip()
     
     # create a death screen
     def show_death_screen(self):
         self.screen.fill(RED)
-        self.draw_text(self.screen, "You Died!", 42, WHITE, WIDTH/2, HEIGHT/2)
+        self.draw_text(self.screen, "You Died!", 50, WHITE, WIDTH/2, HEIGHT/2)
         pg.display.flip()
         self.wait_for_key()
 

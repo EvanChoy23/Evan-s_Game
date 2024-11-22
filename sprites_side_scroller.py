@@ -99,6 +99,7 @@ class Player(Sprite):
             if str(hits[0].__class__.__name__) == "Mob":
                 self.lives -= 1
                 print("ouch")
+
             if str(hits[0].__class__.__name__) == "Life":
                 self.lives += 1
 
@@ -138,7 +139,7 @@ class Mob(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((randint(32, 96), randint(32, 96)))
-        self.image.fill(random.choice([BROWN, BEAVER, BISTRE, BRONZE, BURNTUMBER, COFFEE]))
+        self.image.fill(random.choice([BROWN, TURQUOISE, GREEN, LIME, PURPLE]))
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
@@ -156,9 +157,9 @@ class Mob(Sprite):
         if self.rect.y > HEIGHT:
             self.rect.y = 0
             self.rect.x = randint(32, 918)
-            self.score += 1
             self.speed += random.choice([-1,0.5,1])
-            self.image.fill(random.choice([BROWN, BEAVER, BISTRE, BRONZE, BURNTUMBER, COFFEE]))
+            self.image.fill(random.choice([BROWN, TURQUOISE, GREEN, LIME, PURPLE]))
+            # self.score += 1
             # if self.speed == 0:
             #     self.speed += 1
             # if self.score == 10:
