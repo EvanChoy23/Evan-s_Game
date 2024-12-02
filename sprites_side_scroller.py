@@ -99,6 +99,12 @@ class Player(Sprite):
             if str(hits[0].__class__.__name__) == "Mob":
                 self.lives -= 1
                 print("ouch")
+            if str(hits[0].__class__.__name__) == "Fastobj":
+                self.lives -= 1
+                print("ouch")
+            if str(hits[0].__class__.__name__) == "Wierdobj":
+                self.lives -= 1
+                print("ouch")
 
             if str(hits[0].__class__.__name__) == "Life":
                 self.lives += 1
@@ -139,12 +145,12 @@ class Mob(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((randint(32, 96), randint(32, 96)))
-        self.image.fill(random.choice([BROWN, TURQUOISE, GREEN, LIME, PURPLE]))
+        self.image.fill(BROWN)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
         self.speed = randint(5, 10)
-        self.score = 0
+        # self.score = 0
 
     # tells the game what to do to update mobs.
     def update(self):
@@ -158,19 +164,50 @@ class Mob(Sprite):
             self.rect.y = 0
             self.rect.x = randint(32, 918)
             self.speed += random.choice([-1,0.5,1])
-            self.image.fill(random.choice([BROWN, TURQUOISE, GREEN, LIME, PURPLE]))
-            # self.score += 1
-            # if self.speed == 0:
-            #     self.speed += 1
-            # if self.score == 10:
-            #     self.speed += randint(3, 5)
-            # elif self.score == 25:
-            #     self.speed += randint(5,7)
-            # elif self.score == 40:
-            #     self.speed += randint(7, 10)
-            
-        # if self.rect.colliderect(self.game.player):
-        #     self.speed = 0
+            self.image.fill(BROWN)
+
+class Wierdobj(Sprite):
+    def __init__(self, game, x, y,):
+        self.groups = game.all_sprites, game.all_mobs
+        Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((randint(32, 96), randint(32, 96)))
+        self.image.fill(RED)
+        self.rect = self.image.get_rect()
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+        self.speed = 10
+
+    # tells the game what to do to update mobs.
+    def update(self):
+        self.rect.y += self.speed
+        self.rect.x += (randint(-32, 32))
+
+        # what to do when the mob goes below the screen
+        # if self.rect.y > HEIGHT:
+        #     self.rect.y = 0
+        #     self.rect.x = randint(32, 918)
+        #     self.speed += random.choice([-1,0.5,1])
+
+class Fastobj(Sprite):
+    def __init__(self, game, x, y,):
+        self.groups = game.all_sprites, game.all_mobs
+        Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((32, 64))
+        self.image.fill(GRAY)
+        self.rect = self.image.get_rect()
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+        self.speed = 32
+
+    # tells the game what to do to update mobs.
+    def update(self):
+        self.rect.y += self.speed
+        
+        if self.rect.y > HEIGHT:
+            self.rect.y = 0
+            self.rect.x = randint(32, 918)
 
 # add walls
 class Wall(Sprite):

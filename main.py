@@ -80,6 +80,10 @@ class Game:
                     Jump(self, col, row)
                 if tile == 'L':
                     Life(self, col, row)
+                if tile == 'W':
+                    Wierdobj(self,col, row)
+                if tile == 'F':
+                    Fastobj(self, col, row)
 
     # running the game
     def run(self):
