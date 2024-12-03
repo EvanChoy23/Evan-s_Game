@@ -166,7 +166,8 @@ class Mob(Sprite):
             self.speed += random.choice([-1,0.5,1])
             self.image.fill(BROWN)
 
-class Wierdobj(Sprite):
+# add weird objects
+class Weirdobj(Sprite):
     def __init__(self, game, x, y,):
         self.groups = game.all_sprites, game.all_mobs
         Sprite.__init__(self, self.groups)
@@ -178,7 +179,7 @@ class Wierdobj(Sprite):
         self.rect.y = y * TILESIZE
         self.speed = 10
 
-    # tells the game what to do to update mobs.
+    # update weird mobs
     def update(self):
         self.rect.y += self.speed
         self.rect.x += (randint(-32, 32))
@@ -189,6 +190,7 @@ class Wierdobj(Sprite):
         #     self.rect.x = randint(32, 918)
         #     self.speed += random.choice([-1,0.5,1])
 
+# add fast objects
 class Fastobj(Sprite):
     def __init__(self, game, x, y,):
         self.groups = game.all_sprites, game.all_mobs
@@ -201,7 +203,7 @@ class Fastobj(Sprite):
         self.rect.y = y * TILESIZE
         self.speed = 32
 
-    # tells the game what to do to update mobs.
+    # uptate fast objects
     def update(self):
         self.rect.y += self.speed
         

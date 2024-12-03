@@ -1,5 +1,6 @@
 from random import randint
 
+# various values
 FPS = 30
 
 TILESIZE = 32

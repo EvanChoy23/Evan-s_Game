@@ -132,12 +132,10 @@ class Game:
 
     # output
     def draw(self):
-        # create the screen
+        # create the screen, and draw/write everything on the screen
         self.screen.fill((0, 0, 0))
-        # draw the sprites on to the screen
         self.all_sprites.draw(self.screen)
         # self.draw_text(self.screen, "asdfdasfasdf", 24, WHITE, WIDTH/2, HEIGHT/2)
-        # draw frame rate
         self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
         # self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
         # draw "lives" and "score"
