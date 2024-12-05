@@ -11,6 +11,8 @@ HEIGHT = 768
 GRAVITY = 0.8
 FRICTION = -0.12
 
+HS_FILE = "highscore.txt"
+
 
 # colors
 

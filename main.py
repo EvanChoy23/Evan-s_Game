@@ -40,9 +40,24 @@ class Game:
         pg.display.set_caption("Evan's really cool game")
         self.playing = True
         self.timer = Timer(self)
+        self.score = self.timer.current_time
+
     def load_data(self):
         self.game_folder = path.dirname(__file__)
+        # with open(path.join(self.game_folder, HS_FILE), 'w') as f:
+        #     f.write(str(0))
+        try:
+            with open(path.join(self.game_folder, HS_FILE), 'r') as f:
+                self.highscore = int(f.read())
+        except:
+            self.highscore = 0
+            with open(path.join(self.game_folder, HS_FILE), 'w') as f:
+              f.write(str(self.highscore))
+
+        
+        # load map
         self.map = Map(path.join(self.game_folder, 'level1.txt'))
+
         # this is where the game creates the stuff you see and hear
     def new(self):
         self.load_data()
@@ -67,9 +82,9 @@ class Game:
 
         # Create sprites using different characters
         for row, tiles in enumerate(self.map.data):
-            print(row)
+            # print(row)
             for col,tile in enumerate(tiles):
-                print(col)
+                # print(col)
                 if tile == '1':
                     Wall(self, col, row)
                 if tile == 'M':
@@ -81,7 +96,7 @@ class Game:
                 if tile == 'L':
                     Life(self, col, row)
                 if tile == 'W':
-                    Wierdobj(self,col, row)
+                    Weirdobj(self,col, row)
                 if tile == 'F':
                     Fastobj(self, col, row)
 
@@ -105,6 +120,9 @@ class Game:
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
+                if self.score > self.highscore:
+                    with open(path.join(self.game_folder, HS_FILE), 'w') as f:
+                      f.write(str(self.score))
                 self.playing = False
     # this is where the game updates the game state
     def update(self):
@@ -140,7 +158,8 @@ class Game:
         # self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
         # draw "lives" and "score"
         self.draw_text(self.screen, "Lives:" + str(self.player.lives), 24, WHITE, WIDTH-32, HEIGHT-32)
-        self.draw_text(self.screen, "Seconds Survived:" + str(self.timer.current_time), 24, WHITE, 96, HEIGHT-32)
+        self.draw_text(self.screen, "Score:" + str(self.score), 24, WHITE, 96, HEIGHT-32)
+        self.draw_text(self.screen, "Highscore:" + str(self.highscore), 24, WHITE, WIDTH/2, HEIGHT-32)
         pg.display.flip()
     
     # create a death screen

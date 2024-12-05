@@ -99,6 +99,7 @@ class Player(Sprite):
             if str(hits[0].__class__.__name__) == "Mob":
                 self.lives -= 1
                 print("ouch")
+                self.game.score += 1
             if str(hits[0].__class__.__name__) == "Fastobj":
                 self.lives -= 1
                 print("ouch")
