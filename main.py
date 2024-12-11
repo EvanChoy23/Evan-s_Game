@@ -18,6 +18,7 @@ Sources:
 https://www.w3schools.com/python/ref_random_choice.asp - How to use random choice
 https://www.color-meanings.com/shades-of-brown-color-names-html-hex-rgb-codes/ - Various shades of brown
 https://www.rapidtables.com/web/color/RGB_Color.html - Even more colors
+Matthew Garza - Face Sprite
 
 '''
 
@@ -26,7 +27,7 @@ create a game where the player tries to survive falling objects
 
 GOALS: survive as long as possible
 RULES: don't get hit by the falling objects
-FEEDBACK:
+FEEDBACK: powerups, sprites, different mobs
 FREEDOM: x movement, jumping
 
 '''
@@ -40,7 +41,7 @@ class Game:
         pg.display.set_caption("Evan's really cool game")
         self.playing = True
         self.timer = Timer(self)
-        self.score = self.timer.current_time
+        self.score = 0
 
     def load_data(self):
         self.game_folder = path.dirname(__file__)
@@ -53,6 +54,12 @@ class Game:
             self.highscore = 0
             with open(path.join(self.game_folder, HS_FILE), 'w') as f:
               f.write(str(self.highscore))
+
+        self.img_folder = path.join(self.game_folder, 'images')
+        self.floor_img = pg.image.load(path.join(self.img_folder, 'floor.png'))
+        self.player_img = pg.image.load(path.join(self.img_folder, 'player.png'))
+        self.mob_img = pg.image.load(path.join(self.img_folder, 'brick.png'))
+        
 
         
         # load map
@@ -151,15 +158,15 @@ class Game:
     # output
     def draw(self):
         # create the screen, and draw/write everything on the screen
-        self.screen.fill((0, 0, 0))
+        self.screen.fill(LIGHTBLUE)
         self.all_sprites.draw(self.screen)
         # self.draw_text(self.screen, "asdfdasfasdf", 24, WHITE, WIDTH/2, HEIGHT/2)
-        self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
+        # self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
         # self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
         # draw "lives" and "score"
-        self.draw_text(self.screen, "Lives:" + str(self.player.lives), 24, WHITE, WIDTH-32, HEIGHT-32)
-        self.draw_text(self.screen, "Score:" + str(self.score), 24, WHITE, 96, HEIGHT-32)
-        self.draw_text(self.screen, "Highscore:" + str(self.highscore), 24, WHITE, WIDTH/2, HEIGHT-32)
+        self.draw_text(self.screen, "Lives:" + str(self.player.lives), 24, BLACK, WIDTH-32, 32)
+        self.draw_text(self.screen, "Score:" + str(self.score), 24, BLACK, 96, 32)
+        self.draw_text(self.screen, "Highscore:" + str(self.highscore), 24, BLACK, WIDTH/2, 32)
         pg.display.flip()
     
     # create a death screen

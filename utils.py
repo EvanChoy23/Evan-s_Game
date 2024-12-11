@@ -11,5 +11,6 @@ class Timer():
     # ticking counts up and down
     def ticking(self):
         self.current_time = floor((pg.time.get_ticks())/1000)
+        self.game.score += 1
     def get_current_time(self):
         self.current_time = floor((pg.time.get_ticks())/1000)

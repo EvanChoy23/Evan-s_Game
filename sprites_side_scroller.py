@@ -18,6 +18,7 @@ class Player(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((32, 32))
+        # self.image = self.game.floor_img
         self.image.fill((WHITE))
         self.rect = self.image.get_rect()
         # self.rect.x = x
@@ -121,6 +122,18 @@ class Player(Sprite):
         # self.x += self.vx * self.game.dt
         # self.y += self.vy * self.game.dt
 
+        if self.rect.x > WIDTH:
+            self.rect.x = 0
+            self.pos.x = self.rect.x
+
+        if self.rect.x < 0:
+            self.rect.x = WIDTH
+            self.pos.x = self.rect.x
+
+        if self.rect.y > HEIGHT:
+            self.lives = 0
+
+
         # round tiny velocities down
         if abs(self.vel.x) < 0.1:
             self.vel.x = 0
@@ -146,7 +159,8 @@ class Mob(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((randint(32, 96), randint(32, 96)))
-        self.image.fill(BROWN)
+        self.image = self.game.mob_image
+        # self.image.fill(BROWN)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
@@ -165,7 +179,7 @@ class Mob(Sprite):
             self.rect.y = 0
             self.rect.x = randint(32, 918)
             self.speed += random.choice([-1,0.5,1])
-            self.image.fill(BROWN)
+
 
 # add weird objects
 class Weirdobj(Sprite):
@@ -218,8 +232,9 @@ class Wall(Sprite):
         self.groups = game.all_sprites, game.all_walls
         Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = pg.Surface((32, 32))
-        self.image.fill(BLUE)
+        self.image = pg.Surface((32,32))
+        # self.image.fill(BLUE)
+        self.image = self.game.floor_img
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
