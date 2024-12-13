@@ -19,6 +19,7 @@ https://www.w3schools.com/python/ref_random_choice.asp - How to use random choic
 https://www.color-meanings.com/shades-of-brown-color-names-html-hex-rgb-codes/ - Various shades of brown
 https://www.rapidtables.com/web/color/RGB_Color.html - Even more colors
 Matthew Garza - Face Sprite
+ChatGPT - How would you resize image sprites to fit the size of this mob [INSERT MOB CODE]
 
 '''
 
@@ -42,6 +43,7 @@ class Game:
         self.playing = True
         self.timer = Timer(self)
         self.score = 0
+        self.extra_life_spawned = False
 
     def load_data(self):
         self.game_folder = path.dirname(__file__)
@@ -55,10 +57,12 @@ class Game:
             with open(path.join(self.game_folder, HS_FILE), 'w') as f:
               f.write(str(self.highscore))
 
+        # add images
         self.img_folder = path.join(self.game_folder, 'images')
         self.floor_img = pg.image.load(path.join(self.img_folder, 'floor.png'))
         self.player_img = pg.image.load(path.join(self.img_folder, 'player.png'))
         self.mob_img = pg.image.load(path.join(self.img_folder, 'brick.png'))
+        self.background_img = pg.image.load(path.join(self.img_folder, 'background.png'))
         
 
         
@@ -131,6 +135,10 @@ class Game:
                     with open(path.join(self.game_folder, HS_FILE), 'w') as f:
                       f.write(str(self.score))
                 self.playing = False
+
+    def spawn_life_powerup(self, x, y):
+        Life(self, x, y)
+
     # this is where the game updates the game state
     def update(self):
     # this is where the sprites get updated
@@ -139,8 +147,16 @@ class Game:
         self.timer.ticking()
         # what to do when the player runs out of lives
         if self.player.lives == 0:
+            if self.score > self.highscore:
+                    with open(path.join(self.game_folder, HS_FILE), 'w') as f:
+                      f.write(str(self.score))
             self.show_death_screen()
             self.running = False
+
+        if self.score >= 300 and not self.extra_life_spawned:
+            self.spawn_life_powerup(WIDTH//2, 0)
+            self.extra_life_spawned = True
+
 
         # if self.timer.current_time == 10:
         #     Life(self, randint(32, 918), randint(32, 918))

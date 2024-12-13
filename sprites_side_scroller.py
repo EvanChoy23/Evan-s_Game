@@ -18,8 +18,8 @@ class Player(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((32, 32))
-        # self.image = self.game.floor_img
         self.image.fill((WHITE))
+        # self.image = self.game.player_img
         self.rect = self.image.get_rect()
         # self.rect.x = x
         # self.rect.y = y
@@ -159,12 +159,14 @@ class Mob(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((randint(32, 96), randint(32, 96)))
-        self.image = self.game.mob_image
-        # self.image.fill(BROWN)
+        self.image.fill(BROWN)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
         self.speed = randint(5, 10)
+        #C hatGPT: resizing image sprites
+        self.mob_img = pg.transform.scale(self.game.mob_img, self.image.get_size())
+        self.image.blit(self.mob_img, (0, 0))
         # self.score = 0
 
     # tells the game what to do to update mobs.
@@ -267,3 +269,6 @@ class Life(Sprite):
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
         self.speed = 1
+
+    def update(self):
+        self.rect.y += self.speed
