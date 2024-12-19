@@ -159,14 +159,16 @@ class Mob(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((randint(32, 96), randint(32, 96)))
-        self.image.fill(BROWN)
+        self.image.fill(LIGHTBLUE)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
         self.speed = randint(5, 10)
         #ChatGPT: resizing image sprites
         self.mob_img = pg.transform.scale(self.game.mob_img, self.image.get_size())
-        self.image.blit(self.mob_img, (0, 0))
+        self.mob2_img = pg.transform.scale(self.game.mob2_img, self.image.get_size())
+        self.mob3_img = pg.transform.scale(self.game.mob3_img, self.image.get_size())
+        self.image.blit(random.choice([self.mob_img, self.mob2_img, self.mob3_img]), (0, 0))
         # self.score = 0
 
     # tells the game what to do to update mobs.

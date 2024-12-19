@@ -18,7 +18,7 @@ HS_FILE = "highscore.txt"
 
 RED = (200, 0, 0)
 BLUE = (0,0,255)
-LIGHTBLUE = (50, 180, 216)
+LIGHTBLUE = (41,208,255)
 GREEN = (0,255,0)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

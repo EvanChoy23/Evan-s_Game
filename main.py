@@ -20,6 +20,7 @@ https://www.color-meanings.com/shades-of-brown-color-names-html-hex-rgb-codes/ -
 https://www.rapidtables.com/web/color/RGB_Color.html - Even more colors
 Matthew Garza - Face Sprite
 ChatGPT - How would you resize image sprites to fit the size of this mob [INSERT MOB CODE]
+ChatGPT - How would you make the background an image [INSERT MAIN CODE]
 
 '''
 
@@ -61,9 +62,11 @@ class Game:
         self.img_folder = path.join(self.game_folder, 'images')
         self.floor_img = pg.image.load(path.join(self.img_folder, 'floor.png'))
         self.player_img = pg.image.load(path.join(self.img_folder, 'player.png'))
-        self.mob_img = pg.image.load(path.join(self.img_folder, 'brick.png'))
+        self.mob_img = pg.image.load(path.join(self.img_folder, 'pizza.png'))
+        self.mob2_img = pg.image.load(path.join(self.img_folder, 'donut.png'))
+        self.mob3_img = pg.image.load(path.join(self.img_folder, 'burger.png'))
         self.background_img = pg.image.load(path.join(self.img_folder, 'background.png'))
-        self.lightning_img = pg.image.load(path.join(self.img_folder, 'lightning.png'))
+        self.lightning_img = pg.image.load(path.join(self.img_folder, 'hotdog.png'))
         
 
         
