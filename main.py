@@ -63,6 +63,7 @@ class Game:
         self.player_img = pg.image.load(path.join(self.img_folder, 'player.png'))
         self.mob_img = pg.image.load(path.join(self.img_folder, 'brick.png'))
         self.background_img = pg.image.load(path.join(self.img_folder, 'background.png'))
+        self.lightning_img = pg.image.load(path.join(self.img_folder, 'lightning.png'))
         
 
         
@@ -174,13 +175,16 @@ class Game:
     # output
     def draw(self):
         # create the screen, and draw/write everything on the screen
-        self.screen.fill(LIGHTBLUE)
+        # self.screen.fill(LIGHTBLUE)
+        # ChatGPT background image
+        self.sky_img = pg.transform.scale(self.background_img, (WIDTH, HEIGHT))
+        self.screen.blit(self.sky_img, (0,0))
         self.all_sprites.draw(self.screen)
         # self.draw_text(self.screen, "asdfdasfasdf", 24, WHITE, WIDTH/2, HEIGHT/2)
         # self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
         # self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
         # draw "lives" and "score"
-        self.draw_text(self.screen, "Lives:" + str(self.player.lives), 24, BLACK, WIDTH-32, 32)
+        self.draw_text(self.screen, "Lives:" + str(self.player.lives), 24, BLACK, WIDTH-64, 32)
         self.draw_text(self.screen, "Score:" + str(self.score), 24, BLACK, 96, 32)
         self.draw_text(self.screen, "Highscore:" + str(self.highscore), 24, BLACK, WIDTH/2, 32)
         pg.display.flip()

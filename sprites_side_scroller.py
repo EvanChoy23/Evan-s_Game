@@ -18,7 +18,7 @@ class Player(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((32, 32))
-        self.image.fill((WHITE))
+        self.image.fill((GRAY))
         # self.image = self.game.player_img
         self.rect = self.image.get_rect()
         # self.rect.x = x
@@ -164,7 +164,7 @@ class Mob(Sprite):
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
         self.speed = randint(5, 10)
-        #C hatGPT: resizing image sprites
+        #ChatGPT: resizing image sprites
         self.mob_img = pg.transform.scale(self.game.mob_img, self.image.get_size())
         self.image.blit(self.mob_img, (0, 0))
         # self.score = 0
@@ -213,8 +213,9 @@ class Fastobj(Sprite):
         self.groups = game.all_sprites, game.all_mobs
         Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = pg.Surface((32, 64))
-        self.image.fill(GRAY)
+        self.image = pg.Surface((16, 64))
+        # self.image.fill(GRAY)
+        self.image = self.game.lightning_img
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE

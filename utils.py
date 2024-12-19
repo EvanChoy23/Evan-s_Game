@@ -13,4 +13,4 @@ class Timer():
         self.current_time = floor((pg.time.get_ticks())/1000)
         self.game.score += 1
     def get_current_time(self):
-        self.current_time = floor((pg.time.get_ticks())/1000)
+        self.current_time = floor((pg.time.get_ticks())/1000) 
