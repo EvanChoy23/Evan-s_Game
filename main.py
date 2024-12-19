@@ -195,7 +195,10 @@ class Game:
     # create a death screen
     def show_death_screen(self):
         self.screen.fill(RED)
-        self.draw_text(self.screen, "You Died!", 50, WHITE, WIDTH/2, HEIGHT/2)
+        self.draw_text(self.screen, "You Died!", 100, WHITE, WIDTH/2, HEIGHT/2 - 96)
+        self.draw_text(self.screen, "Score:" + str(self.score), 25, WHITE, WIDTH/2, HEIGHT/2 + 32)
+        self.draw_text(self.screen, "High Score:" + str(self.highscore), 25, WHITE, WIDTH/2, HEIGHT/2 + 64)
+        self.draw_text(self.screen, "Close window to restart", 25, WHITE, WIDTH/2, HEIGHT/2 + 96)
         pg.display.flip()
         self.wait_for_key()
 
